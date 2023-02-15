@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>markedown使用笔记.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+<!-- code_chunk_output -->
+<ul>
+<li><a href="#-markdown%E8%AF%AD%E6%B3%95%E7%AC%94%E8%AE%B0vscode-">markdown语法笔记(VScode)</a>
+<ul>
+<li><a href="#-10-%E6%A0%87%E9%A2%98%E8%AE%BE%E7%BD%AE-">1.0 标题设置：</a></li>
+<li><a href="#-20-%E4%BB%A3%E7%A0%81%E6%8F%92%E5%85%A5-">2.0 代码插入：</a></li>
+<li><a href="#-30--%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E5%8F%8A%E5%9B%BE%E6%B3%A8-">3.0  插入图片及图注：</a>
+<ul>
+<li><a href="#-31-%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87-">3.1 插入图片</a></li>
+<li><a href="#-32-%E5%9B%BE%E6%B3%A8-">3.2 图注</a></li>
+<li><a href="#-33-%E7%A4%BA%E4%BE%8B-">3.3 示例</a></li>
+</ul>
+</li>
+<li><a href="#-40-%E6%96%87%E5%AD%97%E6%95%88%E6%9E%9C-">4.0 文字效果</a>
+<ul>
+<li><a href="#-41-%E6%96%9C%E4%BD%93-">4.1 斜体</a></li>
+<li><a href="#-42-%E7%B2%97%E4%BD%93-">4.2 粗体</a></li>
+<li><a href="#-43-%E5%8A%A0%E7%B2%97%E6%96%9C%E4%BD%93-">4.3 加粗斜体</a></li>
+<li><a href="#-44-%E5%88%A0%E9%99%A4%E7%BA%BF-">4.4 删除线</a></li>
+</ul>
+</li>
+<li><a href="#-50-%E8%B6%85%E9%93%BE%E6%8E%A5-">5.0 超链接</a></li>
+<li><a href="#-60-%E6%B3%A8%E8%84%9A-">6.0 注脚</a></li>
+<li><a href="#-70-%E5%88%97%E8%A1%A8-">7.0 列表</a>
+<ul>
+<li><a href="#-71-%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8-">7.1 无序列表</a></li>
+<li><a href="#-72-%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8-">7.2 有序列表</a></li>
+<li><a href="#-73-%E5%AE%9A%E4%B9%89%E5%9E%8B%E5%88%97%E8%A1%A8-">7.3 定义型列表</a></li>
+<li><a href="#-74-%E5%BC%95%E7%94%A8%E5%9E%8B%E5%88%97%E8%A1%A8-">7.4 引用型列表</a></li>
+<li><a href="#-75-%E4%BB%A3%E7%A0%81%E5%9D%97%E7%9A%84%E5%BC%95%E7%94%A8-">7.5 代码块的引用</a></li>
+<li><a href="#-76-%E7%89%B9%E6%AE%8A%E6%83%85%E5%86%B5-">7.6 特殊情况</a></li>
+</ul>
+</li>
+<li><a href="#-80-%E5%BC%95%E7%94%A8-">8.0 引用</a></li>
+<li><a href="#-90-%E8%A1%A8%E6%A0%BC-">9.0 表格</a></li>
+<li><a href="#-100-%E5%85%AC%E5%BC%8F-">10.0 公式</a>
+<ul>
+<li><a href="#-101-%E8%A1%8C%E5%86%85%E5%85%AC%E5%BC%8F-">10.1 行内公式</a></li>
+<li><a href="#-102-%E6%95%B4%E8%A1%8C%E5%85%AC%E5%BC%8F-">10.2 整行公式</a></li>
+</ul>
+</li>
+<li><a href="#-110-%E6%B5%81%E7%A8%8B%E5%9B%BE%E7%9A%84%E7%BB%98%E5%88%B6-">11.0 流程图的绘制</a></li>
+<li><a href="#-120-%E5%88%86%E5%89%B2%E7%BA%BF-">12.0 分割线</a></li>
+<li><a href="#-130-%E6%96%87%E5%AD%97%E6%95%88%E6%9E%9C-">13.0 文字效果</a></li>
+<li><a href="#-140-%E5%85%B3%E4%BA%8Emarkdown%E7%9A%84%E5%BF%AB%E6%8D%B7%E4%BD%BF%E7%94%A8%E5%92%8C%E7%AE%80%E5%8C%96-">14.0 关于MarkDown的快捷使用和简化</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h1 id="markdown%E8%AF%AD%E6%B3%95%E7%AC%94%E8%AE%B0vscode">markdown语法笔记(VScode)</h1>
+<h2 id="00-%E6%89%80%E9%9C%80%E7%9A%84%E6%8F%92%E4%BB%B6">0.0 所需的插件</h2>
+<ul>
+<li>Markdown All in one</li>
+<li>Markdown PDF</li>
+<li>Markdown Preview Github Styling</li>
+<li>Markdown Preview Enhanced</li>
+</ul>
+<h2 id="10-%E6%A0%87%E9%A2%98%E8%AE%BE%E7%BD%AE">1.0 标题设置：</h2>
+<pre class="hljs"><code><div>  1.#       一级标题
+  2.##      二级标题
+  3.###     三级标题
+  4.####    四级标题
+  5.#####   五级标题
+  6.######  六级标题
+  注：[TOC]自动生成目录
+
+  在VSocde下利用插件Markdown Preview Enhanced（MPE）--&gt;Markdown Preview Enhanced: Create Toc
+  在光标处自动生成目录
+</div></code></pre>
+<h2 id="20-%E4%BB%A3%E7%A0%81%E6%8F%92%E5%85%A5">2.0 代码插入：</h2>
+<pre class="hljs"><code><div>1.
+  使用&quot;code&quot;如下效果：
+    ```lang{.line-numbers}//添加序号
+    code```
+  自动添加序号：
+    首先ctrl+shift+p,在命令面板输入user snippets新建全局代码:
+
+    &quot;creat to line number code&quot;: {
+		&quot;prefix&quot;: &quot;code&quot;,
+		&quot;body&quot;: [
+			&quot;```${1:lang}{.line-numbers}&quot;,
+			&quot;${2:code}&quot;,
+			&quot;```&quot;,
+			&quot;${0}&quot;
+		],
+		&quot;description&quot;: &quot;code block&quot;
+	  },
+
+2.
+    ```
+    代码段
+    ···
+</div></code></pre>
+<h2 id="30-%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E5%8F%8A%E5%9B%BE%E6%B3%A8">3.0  插入图片及图注：</h2>
+<h3 id="31-%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87">3.1 插入图片</h3>
+<pre class="hljs"><code><div>  1.![Alt text](图片链接 &quot;optional title&quot;)
+      插入本地图片--&gt;填入本地图片位置路径（与.md文件在同一文件夹下)
+
+  2.&lt;image src=&quot;image/imageName.png&quot;&gt;
+  example：
+    &lt;div align=&quot;center&quot;&gt;[letf，center，right]              //图片的位置
+    &lt;image src=&quot;image/suis.png&quot; width=&quot;&quot; height=&quot;100&quot;/&gt;    //设置图片大小
+    &lt;/div&gt;
+</div></code></pre>
+<h3 id="32-%E5%9B%BE%E6%B3%A8">3.2 图注</h3>
+<pre class="hljs"><code><div>  &lt;center&gt;
+  &lt;image src=&quot;image/suis.png&quot; width=&quot;30%&quot;/&gt;
+  &amp;emsp;&amp;emsp;&amp;emsp;
+  &lt;image src=&quot;image/ex.jpg&quot; width=&quot;30%&quot; /&gt;
+    &lt;br/&gt;
+图注：
+第一种方式：
+  &lt;div style=&quot;color:write; border-bottom: 1px solid #d9d9d9;
+      display: inline-block;
+      padding: 2px;&quot;&gt;填入图注内容&lt;/div&gt; 
+  &amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;
+  &amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp; 
+  &lt;div style=&quot;color:red; border-bottom: 1px solid #d9d9d9;
+      display: inline-block;
+      padding: 2px;&quot;&gt;填入图注内容&lt;/div&gt;
+  &lt;/center&gt;
+  &lt;br/&gt;
+注：&amp;emsp; 调整间距，插入空白
+
+第二种方式：
+  &lt;font color=&quot;AAAAAA&quot;&gt;002.jpg&lt;/font&gt;
+</div></code></pre>
+<h3 id="33-%E7%A4%BA%E4%BE%8B">3.3 示例</h3>
+  <center>
+  第一种方式
+  </center>
+  <center>
+  <image src="image/suis.png" width="30%"/>
+  &emsp;&emsp;&emsp;
+  <image src="image/ex.jpg" width="30%" />
+  <br/>
+  <div style="color:write; border-bottom: 1px solid #d9d9d9;
+      display: inline-block;
+      padding: 2px;">png1</div>
+    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+  <div style="color:red; border-bottom: 1px solid #d9d9d9;
+      display: inline-block;
+      padding: 1px;">jpg1</div>
+  </center>
+  <br/>
+ <center>
+  第二种方式
+  </center>
+  <center>
+  <image src="image/suis.png" width="30%"/>
+  &emsp;&emsp;&emsp;
+  <image src="image/ex.jpg" width="30%" />
+  <br/>
+    <font color="yellow">1.png</font>
+    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+    <font color="blue">2.jpg</font>
+  </center>
+  <br/>
+<h2 id="40-%E6%96%87%E5%AD%97%E6%95%88%E6%9E%9C">4.0 文字效果</h2>
+<h3 id="41-%E6%96%9C%E4%BD%93">4.1 斜体</h3>
+<pre class="hljs"><code><div>*斜体* 或 _斜体_
+</div></code></pre>
+<p><em>斜体</em></p>
+<h3 id="42-%E7%B2%97%E4%BD%93">4.2 粗体</h3>
+<pre class="hljs"><code><div>**粗体**
+</div></code></pre>
+<p><strong>粗体</strong></p>
+<h3 id="43-%E5%8A%A0%E7%B2%97%E6%96%9C%E4%BD%93">4.3 加粗斜体</h3>
+<pre class="hljs"><code><div>***加粗斜体***
+</div></code></pre>
+<p><em><strong>加粗斜体</strong></em></p>
+<h3 id="44-%E5%88%A0%E9%99%A4%E7%BA%BF">4.4 删除线</h3>
+<pre class="hljs"><code><div>~~删除~~
+</div></code></pre>
+<p><s>删除线</s></p>
+<h2 id="50-%E8%B6%85%E9%93%BE%E6%8E%A5">5.0 超链接</h2>
+<pre class="hljs"><code><div>1.&lt;https://github.com/&gt;
+2.[title](link)
+
+注：title非必要
+    link链接地址
+</div></code></pre>
+<p>超链接：
+<a href="https://github.com/">https://github.com/</a>
+锚点：
+<a href="https://github.com/">github</a></p>
+<h2 id="60-%E6%B3%A8%E8%84%9A">6.0 注脚</h2>
+<pre class="hljs"><code><div>[^1]:添加注脚
+</div></code></pre>
+<p>使用注脚<a href="%E6%B3%A8%E8%84%9A%E5%87%BA%E7%8E%B0%E5%9C%A8%E6%96%87%E7%AB%A0%E7%9A%84%E6%9C%AB%E5%B0%BE%EF%BC%8C">^1</a></p>
+<h2 id="70-%E5%88%97%E8%A1%A8">7.0 列表</h2>
+<h3 id="71-%E6%97%A0%E5%BA%8F%E5%88%97%E8%A1%A8">7.1 无序列表</h3>
+<pre class="hljs"><code><div>  用*，+，-表示无序列表
+  - text1
+  - text2
+   
+</div></code></pre>
+<ul>
+<li>text1</li>
+<li>text2</li>
+</ul>
+<h3 id="72-%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8">7.2 有序列表</h3>
+<pre class="hljs"><code><div>  直接用数字+英文句点
+  1. text1
+  2. text2
+</div></code></pre>
+<ol>
+<li>text1</li>
+<li>text2</li>
+</ol>
+<h3 id="73-%E5%AE%9A%E4%B9%89%E5%9E%8B%E5%88%97%E8%A1%A8">7.3 定义型列表</h3>
+<p>定义型列表由名词与解释组成。
+一行写上定义，紧跟一行写上解释。
+解释的写法:紧跟一个缩进(Tab)</p>
+<pre class="hljs"><code><div>名词
+:    解释
+
+</div></code></pre>
+<p>名词
+:    解释</p>
+<h3 id="74-%E5%BC%95%E7%94%A8%E5%9E%8B%E5%88%97%E8%A1%A8">7.4 引用型列表</h3>
+<pre class="hljs"><code><div>- 把大象装入冰箱
+  &gt; 1.打开冰箱
+  &gt; 2.放入大象
+  &gt; 3.关门
+</div></code></pre>
+<ul>
+<li>把大象装入冰箱
+<blockquote>
+<p>1.打开冰箱
+2.放入大象
+3.关门</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="75-%E4%BB%A3%E7%A0%81%E5%9D%97%E7%9A%84%E5%BC%95%E7%94%A8">7.5 代码块的引用</h3>
+<pre class="hljs"><code><div>&lt;代码块&gt;
+</div></code></pre>
+<h3 id="76-%E7%89%B9%E6%AE%8A%E6%83%85%E5%86%B5">7.6 特殊情况</h3>
+<p><strong>在行首部出现数字-句点-空白时，需加入反斜杠</strong></p>
+<h2 id="80-%E5%BC%95%E7%94%A8">8.0 引用</h2>
+<h2 id="90-%E8%A1%A8%E6%A0%BC">9.0 表格</h2>
+<pre class="hljs"><code><div>
+居左
+| text1 | text2 | text3 |
+| ----- | ----- | ----- |
+| text  | text  | text  |
+
+居中
+| text1 | text2 | text3 |
+| :---: | :---: | :---: |
+居右
+| text1 | text2 | text3 |
+| ----: | ----: | ----: |
+
+单元内文字换行使用&lt;br&gt;
+| text1 | text2     | text3        |
+| ----- | --------- | ------------ |
+| text  | text TEXT | text&lt;br&gt;TEXT |
+</div></code></pre>
+<p>居左</p>
+<table>
+<thead>
+<tr>
+<th>text1</th>
+<th>text2</th>
+<th>text3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>text</td>
+<td>text TEXT</td>
+<td>text<br>TEXT</td>
+</tr>
+</tbody>
+</table>
+<p>居中</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">text1</th>
+<th style="text-align:center">text2</th>
+<th style="text-align:center">text3</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<p>居右</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">text1</th>
+<th style="text-align:right">text2</th>
+<th style="text-align:right">text3</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<h2 id="100-%E5%85%AC%E5%BC%8F">10.0 公式</h2>
+<h3 id="101-%E8%A1%8C%E5%86%85%E5%85%AC%E5%BC%8F">10.1 行内公式</h3>
+<pre class="hljs"><code><div>$E=mc^2$ 
+</div></code></pre>
+<p>$E=mc^2$</p>
+<h3 id="102-%E6%95%B4%E8%A1%8C%E5%85%AC%E5%BC%8F">10.2 整行公式</h3>
+<pre class="hljs"><code><div>$$E=mc^2$$
+</div></code></pre>
+<p>$$E=mc^2$$</p>
+<h2 id="110-%E6%B5%81%E7%A8%8B%E5%9B%BE%E7%9A%84%E7%BB%98%E5%88%B6">11.0 流程图的绘制</h2>
+<p><s>在反复尝试之后并没有绘制出流程图后发现</s><strong>Markdown制作流程图较为抽象和繁琐，建议使用幕布等软件进行绘制流程图，然后插入图片</strong></p>
+<h2 id="120-%E5%88%86%E5%89%B2%E7%BA%BF">12.0 分割线</h2>
+<pre class="hljs"><code><div>* * *
+***
+*****
+- - -
+---------------------------------------
+</div></code></pre>
+<hr>
+<p>上下有两条分割线</p>
+<hr>
+<h2 id="130-%E6%96%87%E5%AD%97%E6%95%88%E6%9E%9C">13.0 文字效果</h2>
+<h3 id="131-%E6%96%87%E5%AD%97%E4%BD%8D%E7%BD%AE">13.1 文字位置</h3>
+<pre class="hljs"><code><div>&lt;div align = center&gt;
+文字居中
+&lt;/div&gt;
+注：left（左),center（中）,right（右）
+</div></code></pre>
+  <div align = center>
+  文字居中
+  </div>
+<h3 id="%E6%96%87%E5%AD%97%E5%AD%97%E4%BD%93%E9%A2%9C%E8%89%B2%E5%92%8C%E5%B0%BA%E5%AF%B8">文字字体，颜色和尺寸</h3>
+<pre class="hljs"><code><div>使用font标签
+1. face-&gt;字体
+2. color-&gt;颜色,可用字母如red，black，blue，yellow等，也可用十六进制表示比如#0000ff
+3. size-&gt;尺寸,大小1-7，默认3
+
+例如
+&lt;font face=&quot;楷体&quot;&gt;楷体&lt;/font&gt;
+&lt;font face=&quot;隶书&quot;&gt;隶书&lt;/font&gt;
+&lt;font face=&quot;宋体&quot;&gt;宋体&lt;/font&gt;
+&lt;font color=red size=7 face=&quot;黑体&quot;&gt;我是红色，宋体，大小是7&lt;/font&gt;
+&lt;font color=#074197 size=1&gt;我的颜色是#074197，大小是1&lt;/font&gt;
+</div></code></pre>
+<p><font face="楷体">楷体</font>
+<font face="隶书">隶书</font>
+<font face="宋体">宋体</font></p>
+<p><font color=red size=7 face="黑体">我是红色，宋体，大小是7</font>
+<font color=#074197 size=1>我的颜色是#074197，大小是1</font></p>
+<h2 id="140-%E5%85%B3%E4%BA%8Emarkdown%E7%9A%84%E5%BF%AB%E6%8D%B7%E4%BD%BF%E7%94%A8%E5%92%8C%E7%AE%80%E5%8C%96">14.0 关于MarkDown的快捷使用和简化</h2>
+<p>在诸如制表，插入图片，代码块等功能时比较浪费时间，为了提高使用效率可以全局代码编写如下代码</p>
+<pre class="hljs"><code><div>  //插入代码
+  &quot;code block&quot;: {
+  	&quot;prefix&quot;: &quot;code&quot;,
+  	&quot;body&quot;: [
+  		&quot;```${1:lang}{.line-numbers}&quot;,
+  		&quot;${2:code}&quot;,
+  		&quot;```&quot;,
+  		&quot;${0}&quot;
+  	],
+  	&quot;description&quot;: &quot;code block&quot;
+  },
+  //表格
+  &quot;Insert a simple table with text left&quot;: {
+  	&quot;prefix&quot;: &quot;tab&quot;,
+  	&quot;body&quot;: [
+  		&quot;|   |   |   |&quot;,
+  		&quot;| - | - | - |&quot;,
+  		&quot;|   |   |   |&quot;
+  	],
+  	&quot;description&quot;: &quot;Insert a simple table with text  left&quot;
+  },
+</div></code></pre>
+
+</body>
+</html>
